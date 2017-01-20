@@ -1,0 +1,28 @@
+{
+  "name": "eleganta",
+  "version": "0.0.1",
+  "description": "An elegant MVC framework for node.js",
+  "main": "core.js",
+  "scripts": {
+    "test": "node core.js test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elegantamvc/eleganta.git"
+  },
+  "keywords": [
+    "eleganta",
+    "node",
+    "mvc",
+    "framework"
+  ],
+  "author": "Dominic Valenciana & Ivan Mattie",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/elegantamvc/eleganta/issues"
+  },
+  "homepage": "https://github.com/elegantamvc/eleganta#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
