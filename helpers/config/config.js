@@ -33,7 +33,6 @@ class Config {
      */
     getSettingsFiles(filename) {
         let content = fs.readFileSync(this.settingsPath+'config.json');
-        console.log(this.settingsPath+filename+'.json');
         return JSON.parse(content);
     }
 }
