@@ -27,11 +27,8 @@ class Route {
      * action  seperated by an @;
      */
     get(path, controllerString) {
-        let controllerConfig = this.parseControllerString(controllerString);
-        let Controller = require(controllerConfig.path);
-        let control = new Controller();
 
-        this.express.get(path, control[controllerConfig.method]);
+        this.express.get(path, this.getControllerMethod(controllerString));
     }
 
     put(path, controllerString) {
@@ -39,9 +36,7 @@ class Route {
     }
 
     post(path, controllerString) {
-        let controllerConfig = this.parseControllerString(controllerString);
-        let Controller = require(controllerConfig.path);
-        let control = new Controller();
+
 
         this.express.post(path, control[controllerConfig.method]);
     }
@@ -59,10 +54,9 @@ class Route {
         let controllerConfig = this.parseControllerString(controllerString);
         let path = controllerConfig.path;
         let arrayIndex = this.controllerMapping[path];
-        console.log(arrayIndex);
-        if(arrayIndex) {
+
+        if(arrayIndex != undefined) {
             return this.controllers[arrayIndex][controllerConfig.method];
-            console.log('used');
         }else {
             this.controllerMapping[path] = this.controllers.length;
             let Controller = require(path);
