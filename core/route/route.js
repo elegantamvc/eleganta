@@ -1,6 +1,7 @@
 /**
- * Route class to be called in our router
- * for setting up different types of classes;
+ * Static class that will be imported
+ * by users to register routes to for
+ * their web app.
  */
 class Route {
 
