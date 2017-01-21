@@ -6,7 +6,6 @@ const args = process.argv;
 let app = express();
 
 
-
 /**
  * Our static Route class that can be called to created
  * new routes on the fly
@@ -23,8 +22,9 @@ module.exports.Route = new Route(app);
  */
 module.exports.startServer = function() {
     // Register all our routes with express
+    let Routes = [];
     filesystem.walkSync(process.cwd()+'/app/routes').forEach((path) => {
-        let Routes = require(path);
+        Routes.push(require(path));
     });
 
     // Run the express server on port 3000
