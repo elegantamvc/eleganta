@@ -6,9 +6,10 @@ class Route {
 
     /**
      * Contructor method
-     * @param {String} projectPath - Path of website to run;
+     * @param {String} projectPath - Path of website to run
+     * @param {Express} express - Instance of Express.js
      */
-    constructor(projectPath) {
+    constructor(projectPath, express) {
         this.projectPath = projectPath;
         this.routesPath = 'app/routes';
     }
@@ -22,7 +23,10 @@ class Route {
      * action  seperated by an @;
      */
     get(path, controllerString) {
-
+        let controllerConfig = this.parseControllerString(controllerString);
+        let Controller = require(controllerConfig.path);
+        let control = new Controller();
+        express.get(path, control[controllerConfig.method]);
     }
 
     /**
