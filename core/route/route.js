@@ -11,7 +11,8 @@ class Route {
      */
     constructor(projectPath, express) {
         this.projectPath = projectPath;
-        this.routesPath = 'app/routes';
+        this.controllerPath = 'app/controllers';
+        this.express = express;
     }
 
 
@@ -26,7 +27,7 @@ class Route {
         let controllerConfig = this.parseControllerString(controllerString);
         let Controller = require(controllerConfig.path);
         let control = new Controller();
-        express.get(path, control[controllerConfig.method]);
+        this.express.get(path, control[controllerConfig.method]);
     }
 
     /**
@@ -40,7 +41,7 @@ class Route {
     parseControllerString(controllerString) {
         let stringArgs = controllerString.split('@');
         let controller = {
-            path: this.projectPath+'/'+this.routesPath+'/'+stringArgs[0],
+            path: this.projectPath+'/'+this.controllerPath+'/'+stringArgs[0],
             method: stringArgs[1],
         };
 
@@ -48,4 +49,4 @@ class Route {
     }
 }
 
-module.exports = new Route();
+module.exports = Route;
