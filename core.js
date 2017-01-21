@@ -33,6 +33,10 @@ module.exports.startServer = function() {
         Routes.push(require(path));
     });
 
+    // Register our path to our public files resources files
+    app.use(express.static(Config.staticFolder));
+
+
     // Run the express server on port 3000
     // Port number will be moved to the config later.
     app.listen(Config.port, () => {

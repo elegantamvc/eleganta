@@ -1,4 +1,5 @@
 {
     "port": 4000,
-    "routesFolder": "app/routes"
+    "routesFolder": "app/routes",
+    "staticFolder": "resources"
 }
