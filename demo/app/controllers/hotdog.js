@@ -6,6 +6,10 @@ class hotdog  {
     wow(req, res) {
         res.send('Wow I love hotdogs');
     }
+
+    dog(req, res) {
+        res.send('le dog');
+    }
 }
 
 module.exports = hotdog;

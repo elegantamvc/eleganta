@@ -14,6 +14,8 @@ class Route {
         this.projectPath = process.cwd();
         this.controllerPath = 'app/controllers';
         this.express = express;
+        this.controllers = [];
+        this.controllerMapping = {};
     }
 
 
@@ -28,8 +30,45 @@ class Route {
         let controllerConfig = this.parseControllerString(controllerString);
         let Controller = require(controllerConfig.path);
         let control = new Controller();
-        
+
         this.express.get(path, control[controllerConfig.method]);
+    }
+
+    put(path, controllerString) {
+        this.express.put(path, getControllerMethod(controllerString));
+    }
+
+    post(path, controllerString) {
+        let controllerConfig = this.parseControllerString(controllerString);
+        let Controller = require(controllerConfig.path);
+        let control = new Controller();
+
+        this.express.post(path, control[controllerConfig.method]);
+    }
+
+    delete(path, controllerString) {
+        let controllerConfig = this.parseControllerString(controllerString);
+        let Controller = require(controllerConfig.path);
+        let control = new Controller();
+
+        this.express.delete(path, control[controllerConfig.method]);
+    }
+
+
+    getControllerMethod(controllerString) {
+        let controllerConfig = this.parseControllerString(controllerString);
+        let path = controllerConfig.path;
+        let arrayIndex = this.controllerMapping[path];
+        console.log(arrayIndex);
+        if(arrayIndex) {
+            return this.controllers[arrayIndex][controllerConfig.method];
+            console.log('used');
+        }else {
+            this.controllerMapping[path] = this.controllers.length;
+            let Controller = require(path);
+            this.controllers.push(new Controller);
+            return this.controllers[this.controllers.length-1][controllerConfig.method];
+        }
     }
 
 
