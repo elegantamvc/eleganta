@@ -38,7 +38,7 @@ module.exports.startServer = function() {
     app.use(express.static(Config.staticFolder));
 
     // Register our template engine and our views location
-    app.set('views', 'resources/views');
+    app.set('views', Config.viewsFolder);
     app.engine('.hbs', exphbs({extname: '.hbs'}));
     app.set('view engine', '.hbs');
 
