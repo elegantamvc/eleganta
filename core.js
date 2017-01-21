@@ -9,10 +9,7 @@ if(args.length > 0) {
 }
 module.exports.Route = new Route(process.cwd(), app);
 module.exports.startServer = function() {
-    //let Routes = require('./routes/routes');
-    //const Route = require('./../../core.js').Route;
-
-    module.exports.Route.get('/', 'hotdog@index');
+    let Routes = require(process.cwd()+'/app/routes/routes');
     app.listen(3000, () => {
         console.log('Eleganta is running!');
     });

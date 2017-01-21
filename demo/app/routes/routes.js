@@ -1,4 +1,6 @@
-const Route = require('./../../core.js').Route;
+const Route = require(process.cwd()+'/../core.js').Route;
 
 Route.get('/', 'hotdog@index');
+
+Route.get('/hotdog', 'hotdog@wow');
 
