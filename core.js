@@ -2,6 +2,7 @@ const filesystem = require('./helpers/filesystem/filesystem');
 const Cli = require('./cli/cli');
 const express = require('express');
 const Route = require('./core/route/route');
+const Config = require('./helpers/config/config');
 const args = process.argv;
 let app = express();
 
@@ -21,6 +22,9 @@ module.exports.Route = new Route(app);
  * express. :)
  */
 module.exports.startServer = function() {
+    // Initilize config helper
+    let config = new Config(process.cwd());
+
     // Register all our routes with express
     let Routes = [];
     filesystem.walkSync(process.cwd()+'/app/routes').forEach((path) => {
@@ -29,8 +33,8 @@ module.exports.startServer = function() {
 
     // Run the express server on port 3000
     // Port number will be moved to the config later.
-    app.listen(3000, () => {
-        console.log('Eleganta is running at localhost:3000!');
+    app.listen(config.config().port, () => {
+        console.log('Eleganta is running at localhost:'+config.config().port+'!');
     });
 };
 
