@@ -6,7 +6,7 @@
  * @param {String[]} args - Array of arguments from the terminal
  * @return {String[]} - Shortend array of just useful string for commands
  */
-module.exports.parseOutArguments = function(args) {
+function parseOutCommands(args) {
     let commandIndex = 0;
 
     for(let i = 0; i < args.length; i ++) {
@@ -17,4 +17,19 @@ module.exports.parseOutArguments = function(args) {
     }
 
     return args.splice(commandIndex, args.length);
+};
+
+
+/**
+ * Method that runs Eleganta it self by parsing out
+ * command line arguments and choosing the action
+ * to take.
+ * @param {String[]} args - Array of arguments from the terminal
+ */
+module.exports.runEleganta = function(args) {
+    let commands = parseOutCommands(args);
+
+    if(commands.length == 1 && commands[0] == 'serve') {
+        console.log('serve current directory');
+    }
 };
