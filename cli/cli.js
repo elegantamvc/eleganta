@@ -6,7 +6,7 @@
  * @param {String[]} args - Array of arguments from the terminal
  * @return {String[]} - Shortend array of just useful string for commands
  */
-function parseOutCommands(args) {
+module.exports.parseOutCommands = (args) => {
     let commandIndex = 0;
 
     for(let i = 0; i < args.length; i ++) {
@@ -26,10 +26,10 @@ function parseOutCommands(args) {
  * to take.
  * @param {String[]} args - Array of arguments from the terminal
  */
-module.exports.runEleganta = function(args) {
+module.exports.runEleganta = (args) => {
     let commands = parseOutCommands(args);
 
     if(commands.length == 1 && commands[0] == 'serve') {
-        console.log('serve current directory');
+
     }
 };

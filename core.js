@@ -4,11 +4,7 @@ const Route = require('./core/route/route');
 const args = process.argv;
 let app = express();
 
-// Just a dumb check at the moment to prevent the
-// cli from doing extra work.
-if(args.length > 2) {
-    Cli.runEleganta(args);
-}
+
 
 /**
  * Our static Route class that can be called to created
@@ -35,4 +31,12 @@ module.exports.startServer = function() {
     });
 };
 
+// Just a dumb check at the moment to prevent the
+// cli from doing extra work.
+if(args.length > 2) {
+    let commands = Cli.parseOutCommands(args);
 
+    if(commands.length = 1 && commands[0].toLowerCase() == 'serve') {
+        module.exports.startServer();
+    }
+}
