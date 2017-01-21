@@ -67,7 +67,7 @@ class Route {
     getControllerMethod(controllerString) {
         let controllerConfig = this.parseControllerString(controllerString);
         let path = controllerConfig.path;
-        let method = controllerConrig.method;
+        let method = controllerConfig.method;
         let arrayIndex = this.controllerMapping[path];
 
         if(arrayIndex != undefined) {

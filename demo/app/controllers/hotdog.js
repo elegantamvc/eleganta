@@ -10,6 +10,10 @@ class hotdog  {
     dog(req, res) {
         res.send('le dog');
     }
+
+    wutang(req, res) {
+        res.send('wutang son!');
+    }
 }
 
 module.exports = hotdog;

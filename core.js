@@ -1,3 +1,4 @@
+const filesystem = require('./helpers/filesystem/filesystem');
 const Cli = require('./cli/cli');
 const express = require('express');
 const Route = require('./core/route/route');
@@ -22,7 +23,9 @@ module.exports.Route = new Route(app);
  */
 module.exports.startServer = function() {
     // Register all our routes with express
-    let Routes = require(process.cwd()+'/app/routes/routes');
+    filesystem.walkSync(process.cwd()+'/app/routes').forEach((path) => {
+        let Routes = require(path);
+    });
 
     // Run the express server on port 3000
     // Port number will be moved to the config later.
@@ -41,3 +44,5 @@ if(args.length > 2) {
         module.exports.startServer();
     }
 }
+
+
