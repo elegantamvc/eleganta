@@ -1,6 +1,7 @@
 const filesystem = require('./helpers/filesystem/filesystem');
 const Cli = require('./cli/cli');
 const express = require('express');
+const exphbs = require('express-handlebars');
 const Route = require('./core/route/route');
 const ConfigHelper = require('./helpers/config/config');
 const args = process.argv;
@@ -36,6 +37,11 @@ module.exports.startServer = function() {
     // Register our path to our public files resources files
     app.use(express.static(Config.staticFolder));
 
+    // Register our template engine and our views location
+    app.set('views', 'resources/views');
+    app.engine('.hbs', exphbs({extname: '.hbs'}));
+    app.set('view engine', '.hbs');
+
 
     // Run the express server on port 3000
     // Port number will be moved to the config later.
@@ -43,6 +49,7 @@ module.exports.startServer = function() {
         console.log('Eleganta is running at localhost:'+Config.port+'!');
     });
 };
+
 
 // Just a dumb check at the moment to prevent the
 // cli from doing extra work.

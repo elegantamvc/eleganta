@@ -1,6 +1,6 @@
 class hotdog {
     index(req, res) {
-        res.send('Hello hotdog world, how are you?');
+        res.render('index');
     }
 
     wow(req, res) {
@@ -13,6 +13,10 @@ class hotdog {
 
     wutang(req, res) {
         res.send('wutang son!');
+    }
+
+    dogs(req, res) {
+        res.render('hotdog/dog', {hotdogs: req.params.number});
     }
 }
 
