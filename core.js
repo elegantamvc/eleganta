@@ -10,7 +10,7 @@ let app = express();
  * Our static Route class that can be called to created
  * new routes on the fly
  */
-module.exports.Route = new Route(process.cwd(), app);
+module.exports.Route = new Route(app);
 
 
 /**
@@ -27,7 +27,7 @@ module.exports.startServer = function() {
     // Run the express server on port 3000
     // Port number will be moved to the config later.
     app.listen(3000, () => {
-        console.log('Eleganta is running!');
+        console.log('Eleganta is running at localhost:3000!');
     });
 };
 
@@ -36,6 +36,7 @@ module.exports.startServer = function() {
 if(args.length > 2) {
     let commands = Cli.parseOutCommands(args);
 
+    // COMMAND: eleganta serve
     if(commands.length = 1 && commands[0].toLowerCase() == 'serve') {
         module.exports.startServer();
     }

@@ -5,13 +5,13 @@
  */
 class Route {
 
+
     /**
      * Contructor method
-     * @param {String} projectPath - Path of website to run
      * @param {Express} express - Instance of Express.js
      */
-    constructor(projectPath, express) {
-        this.projectPath = projectPath;
+    constructor(express) {
+        this.projectPath = process.cwd();
         this.controllerPath = 'app/controllers';
         this.express = express;
     }
@@ -28,8 +28,10 @@ class Route {
         let controllerConfig = this.parseControllerString(controllerString);
         let Controller = require(controllerConfig.path);
         let control = new Controller();
+        
         this.express.get(path, control[controllerConfig.method]);
     }
+
 
     /**
      * Method to parse out the controller string
@@ -41,6 +43,7 @@ class Route {
      */
     parseControllerString(controllerString) {
         let stringArgs = controllerString.split('@');
+
         let controller = {
             path: this.projectPath+'/'+this.controllerPath+'/'+stringArgs[0],
             method: stringArgs[1],

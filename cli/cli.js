@@ -19,17 +19,3 @@ module.exports.parseOutCommands = (args) => {
     return args.splice(commandIndex, args.length);
 };
 
-
-/**
- * Method that runs Eleganta it self by parsing out
- * command line arguments and choosing the action
- * to take.
- * @param {String[]} args - Array of arguments from the terminal
- */
-module.exports.runEleganta = (args) => {
-    let commands = parseOutCommands(args);
-
-    if(commands.length == 1 && commands[0] == 'serve') {
-
-    }
-};
