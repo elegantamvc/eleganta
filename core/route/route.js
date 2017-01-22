@@ -1,21 +1,19 @@
+const Routing = require('./routing');
+
 /**
  * Static class that will be imported by users to register routes to for their
  * web app.
  */
-class Route {
+class Route extends Routing {
 
 
     /**
      * Contructor method
-     * 
+     *
      * @param {Express} express - Instance of Express.js
      */
     constructor(express) {
-        this.projectPath = process.cwd();
-        this.controllerPath = 'app/controllers';
-        this.express = express;
-        this.controllers = [];
-        this.controllerMapping = {};
+        super(express);
     }
 
 

@@ -4,12 +4,25 @@
  * in different express.js routing opperations.
  */
 class Routing {
+
+    /**
+     * Contructor class for all routing opperations
+     * @param {Express} express - Instance of express.js app
+     */
+    constructor(express) {
+        this.projectPath = process.cwd();
+        this.controllerPath = 'app/controllers';
+        this.express = express;
+        this.controllers = [];
+        this.controllerMapping = {};
+    }
+
     /**
      * Method for grabbing the method mentioned in the controller string and
      * caching existing controllers
-     * 
+     *
      * @param {String} controllerAction
-     * 
+     *
      * @return {Function} - The method from the controller
      */
     getControllerMethod(controllerAction) {
