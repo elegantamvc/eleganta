@@ -10,4 +10,9 @@ Route.get('/hotdog', 'hotdog@wow');
 
 Route.get('/dog', 'hotdog@dog');
 
-require("./hotdog/dog.js");
+require('./hotdog/dog');
+
+// We grab our harambe router and register it
+// to the /harambe path of the app
+let harambe = require('./harambe');
+Route.use('/harambe', harambe);

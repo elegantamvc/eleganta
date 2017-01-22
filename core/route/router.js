@@ -1,5 +1,5 @@
 const Routing = require('./routing');
-
+const Express = require('express');
 /**
  * Router class, unlike the routes class this class
  * limits the scope of all calls and middleware to a specific
@@ -12,9 +12,9 @@ class Router extends Routing {
      * Constructor method setting up basic values
      * @param {Express} express instance of express js.
      */
-    constructor(express) {
-        super(express);
-        this.router = express.Router();
+    constructor() {
+        super();
+        this.router = Express.Router();
     }
 }
 

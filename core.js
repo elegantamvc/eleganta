@@ -3,6 +3,7 @@ const Cli = require('./cli/cli');
 const express = require('express');
 const exphbs = require('express-handlebars');
 const Route = require('./core/route/route');
+const Router = require('./core/route/router');
 const ConfigHelper = require('./helpers/config/config');
 const args = process.argv;
 let app = express();
@@ -12,6 +13,8 @@ let app = express();
  * Our static Route class that can be called to created new routes on the fly
  */
 module.exports.Route = new Route(app);
+
+module.exports.Router = Router;
 
 
 /**
