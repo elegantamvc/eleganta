@@ -32,7 +32,7 @@ class Config {
      * @return {Object}
      */
     getSettingsFiles(filename) {
-        let content = fs.readFileSync(this.settingsPath+'config.json');
+        let content = fs.readFileSync(this.settingsPath + 'config.json');
         return JSON.parse(content);
     }
 }

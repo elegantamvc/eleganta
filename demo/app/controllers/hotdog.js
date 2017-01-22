@@ -1,3 +1,5 @@
+const Database = require(process.cwd() + '/../database/Database.js');
+
 class hotdog {
     index(req, res) {
         res.render('index');
@@ -12,6 +14,8 @@ class hotdog {
     }
 
     wutang(req, res) {
+        Database.table("test").query("SELECT * FROM test");
+
         res.send('wutang son!');
     }
 
