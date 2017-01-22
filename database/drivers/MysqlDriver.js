@@ -12,10 +12,11 @@ class MysqlDriver extends Driver {
         this.settings = configHelper.getSettingsFiles("database");
 
         this.connection = mysql.createConnection(env("database.mysql"));
-        this.connection.connect();
     }
 
     query(queryString) {
+        this.connection.connect();
+
         this.connection.query(queryString, function(error, results, fields) {
             if(error) throw error;
 
@@ -23,6 +24,8 @@ class MysqlDriver extends Driver {
 
             return results;
         });
+
+        this.connection.end();
     }
 
 }
