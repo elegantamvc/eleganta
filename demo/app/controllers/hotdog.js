@@ -1,4 +1,4 @@
-const Database = require(process.cwd() + '/../database/Database.js');
+const Database = require(process.cwd() + '/../core.js').Database;
 
 class hotdog {
     index(req, res) {
