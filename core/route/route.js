@@ -24,11 +24,11 @@ class Route {
      * 
      * @param {String} path - Url path of the webapp to point to
      * 
-     * @param {String} controllerString - String containing controller and
+     * @param {String} controllerAction - String containing controller and
      * action seperated by an @
      */
-    get(path, controllerString) {
-        this.express.get(path, this.getControllerMethod(controllerString));
+    get(path, controllerAction) {
+        this.express.get(path, this.getControllerMethod(controllerAction));
     }
 
     /**
@@ -36,10 +36,10 @@ class Route {
      * 
      * @param {String} path - url path of the webapp to point to
      * 
-     * @param {String} controllerString
+     * @param {String} controllerAction
      */
-    put(path, controllerString) {
-        this.express.put(path, this.getControllerMethod(controllerString));
+    put(path, controllerAction) {
+        this.express.put(path, this.getControllerMethod(controllerAction));
     }
 
     /**
@@ -47,10 +47,10 @@ class Route {
      * 
      * @param {String} path - url path of the webapp to point to
      * 
-     * @param {String} controllerString
+     * @param {String} controllerAction
      */
-    post(path, controllerString) {
-        this.express.post(path, this.getControllerMethod(controllerString));
+    post(path, controllerAction) {
+        this.express.post(path, this.getControllerMethod(controllerAction));
     }
 
     /**
@@ -58,10 +58,10 @@ class Route {
      * 
      * @param {String} path - url path of the webapp to point to
      * 
-     * @param {String} controllerString
+     * @param {String} controllerAction
      */
-    delete(path, controllerString) {
-        this.express.delete(path, this.getControllerMethod(controllerString));
+    delete(path, controllerAction) {
+        this.express.delete(path, this.getControllerMethod(controllerAction));
     }
 
 
@@ -69,23 +69,27 @@ class Route {
      * Method for grabbing the method mentioned in the controller string and
      * caching existing controllers
      * 
-     * @param {String} controllerString
+     * @param {String} controllerAction
      * 
      * @return {Function} - The method from the controller
      */
-    getControllerMethod(controllerString) {
-        let controllerConfig = this.parseControllerString(controllerString);
-        let path = controllerConfig.path;
-        let method = controllerConfig.method;
-        let arrayIndex = this.controllerMapping[path];
+    getControllerMethod(controllerAction) {
+        if(typeof controllerAction == 'string') {
+            let controllerConfig = this.parsecontrollerAction(controllerAction);
+            let path = controllerConfig.path;
+            let method = controllerConfig.method;
+            let arrayIndex = this.controllerMapping[path];
 
-        if(arrayIndex != undefined) {
-            return this.controllers[arrayIndex][method];
-        }else {
-            this.controllerMapping[path] = this.controllers.length;
-            let Controller = require(path);
-            this.controllers.push(new Controller);
-            return this.controllers[this.controllers.length-1][method];
+            if(arrayIndex != undefined) {
+                return this.controllers[arrayIndex][method];
+            }else {
+                this.controllerMapping[path] = this.controllers.length;
+                let Controller = require(path);
+                this.controllers.push(new Controller);
+                return this.controllers[this.controllers.length-1][method];
+            }
+        }else if(typeof controllerAction == 'function') {
+            return controllerAction;
         }
     }
 
@@ -94,13 +98,13 @@ class Route {
      * Method to parse out the controller string in to an object with path and
      * method string property
      * 
-     * @param {String} controllerString - The string passed in to the route
+     * @param {String} controllerAction - The string passed in to the route
      * class containing the controller and method
      * 
      * @return {Object} - Object with path and method string properties
      */
-    parseControllerString(controllerString) {
-        let stringArgs = controllerString.split('@');
+    parsecontrollerAction(controllerAction) {
+        let stringArgs = controllerAction.split('@');
 
         let controller = {
             path: this.projectPath+'/'+this.controllerPath+'/'+stringArgs[0],
