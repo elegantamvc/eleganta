@@ -6,18 +6,20 @@ const fs = require('fs');
  */
 class Config {
     /**
-     * Contrustor taking the path we will be using to build
-     * our eleganta project
-     * @param {string} path - Absolute ath of project's config folder
+     * Constructor taking the path we will be using to build our Eleganta
+     * project
+     * 
+     * @param {string} path - Absolute path of project's root folder
      */
     constructor(path) {
-        this.settingsPath = path+'/config/';
+        this.settingsPath = path + '/config/';
     }
 
 
     /**
-     * Method for returning the config.json
-     * file in the Eleganta project as an object
+     * Method for returning the config.json file in the Eleganta project as an
+     * object.
+     * 
      * @return {Object} - Object representation of config.json
      */
     config() {
@@ -26,13 +28,15 @@ class Config {
 
 
     /**
-     * Method that syncronously reads a file json file and
-     * returns it's contense as an object
-     * @param {String} filename - Name of config to get
+     * Method that syncronously reads a file json file and returns its contents
+     * as an object.
+     * 
+     * @param {String} filename - Name of config to get (does not need .json)
+     * 
      * @return {Object}
      */
     getSettingsFiles(filename) {
-        let content = fs.readFileSync(this.settingsPath+'config.json');
+        let content = fs.readFileSync(this.settingsPath + filename + '.json');
         return JSON.parse(content);
     }
 }
