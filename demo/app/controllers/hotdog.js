@@ -14,9 +14,11 @@ class hotdog {
     }
 
     wutang(req, res) {
-        Database.table("test").query("SELECT * FROM test");
+        Database.table("test").query("SELECT * FROM test").then(function(data) {
+            res.send('wutang son! Also,<br />' + JSON.stringify(data));
+        });
 
-        res.send('wutang son! Also, ' + env("database.mysql.host"));
+        
     }
 
     dogs(req, res) {
