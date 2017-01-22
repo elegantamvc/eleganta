@@ -15,17 +15,17 @@ class MysqlDriver extends Driver {
     }
 
     query(queryString) {
-        this.connection.connect();
+        return new Promise((resolve) => {
+            this.connection.connect();
 
-        this.connection.query(queryString, function(error, results, fields) {
-            if(error) throw error;
+            this.connection.query(queryString, (error, results, fields) => {
+                if(error) throw error;
 
-            console.log(results);
+                resolve(results);
+            });
 
-            return results;
+            this.connection.end();
         });
-
-        this.connection.end();
     }
 
 }
