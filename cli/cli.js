@@ -1,9 +1,10 @@
 
 /**
- * Helper function for parsing out the noise
- * of the command line arguments and returning
- * just the eleganta commands
+ * Helper function for parsing out the noise of the command line arguments and
+ * returning just the eleganta commands.
+ * 
  * @param {String[]} args - Array of arguments from the terminal
+ * 
  * @return {String[]} - Shortend array of just useful string for commands
  */
 module.exports.parseOutCommands = (args) => {

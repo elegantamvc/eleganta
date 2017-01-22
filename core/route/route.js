@@ -1,13 +1,13 @@
 /**
- * Static class that will be imported
- * by users to register routes to for
- * their web app.
+ * Static class that will be imported by users to register routes to for their
+ * web app.
  */
 class Route {
 
 
     /**
      * Contructor method
+     * 
      * @param {Express} express - Instance of Express.js
      */
     constructor(express) {
@@ -20,11 +20,12 @@ class Route {
 
 
     /**
-     * Our HTTP GET method for setting up a new routes
-     * linked to a controller
+     * Our HTTP GET method for setting up a new routes linked to a controller
+     * 
      * @param {String} path - Url path of the webapp to point to
+     * 
      * @param {String} controllerString - String containing controller and
-     * action  seperated by an @;
+     * action seperated by an @
      */
     get(path, controllerString) {
         this.express.get(path, this.getControllerMethod(controllerString));
@@ -32,7 +33,9 @@ class Route {
 
     /**
      * Our HTTP PUT method for setting up a new routes
+     * 
      * @param {String} path - url path of the webapp to point to
+     * 
      * @param {String} controllerString
      */
     put(path, controllerString) {
@@ -41,7 +44,9 @@ class Route {
 
     /**
      * Our HTTP POST method for setting up a new routes
+     * 
      * @param {String} path - url path of the webapp to point to
+     * 
      * @param {String} controllerString
      */
     post(path, controllerString) {
@@ -50,7 +55,9 @@ class Route {
 
     /**
      * Our HTTP DELETE method for setting up a new routes
+     * 
      * @param {String} path - url path of the webapp to point to
+     * 
      * @param {String} controllerString
      */
     delete(path, controllerString) {
@@ -59,9 +66,11 @@ class Route {
 
 
     /**
-     * Method for grabbing the method mentioned in the
-     * controller string and caching existing controllers
+     * Method for grabbing the method mentioned in the controller string and
+     * caching existing controllers
+     * 
      * @param {String} controllerString
+     * 
      * @return {Function} - The method from the controller
      */
     getControllerMethod(controllerString) {
@@ -82,12 +91,13 @@ class Route {
 
 
     /**
-     * Method to parse out the controller string
-     * in to an object with path and method
-     * string property
+     * Method to parse out the controller string in to an object with path and
+     * method string property
+     * 
      * @param {String} controllerString - The string passed in to the route
-     * class containing the controller and method.
-     * @return {Object} - Object with path and method string properties;
+     * class containing the controller and method
+     * 
+     * @return {Object} - Object with path and method string properties
      */
     parseControllerString(controllerString) {
         let stringArgs = controllerString.split('@');
