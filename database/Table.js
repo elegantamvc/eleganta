@@ -8,7 +8,7 @@ class Table {
     }
 
     query(queryString) {
-        return this.driver.query();
+        return this.driver.query(queryString);
     }
 
 }

@@ -13,7 +13,7 @@ class MysqlDriver extends Driver {
 
         this.connection = mysql.createConnection({
             host: this.settings.host,
-            user: this.settings.username,
+            user: this.settings.user,
             password: this.settings.password,
             database: this.settings.database
         });
