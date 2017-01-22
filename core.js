@@ -6,6 +6,7 @@ const Route = require('./core/route/route');
 const ConfigHelper = require('./helpers/config/config');
 const args = process.argv;
 const Database = require("./database/Database.js");
+const EnviromentHelper = require("./helpers/config/EnviromentHelper.js");
 let app = express();
 
 
@@ -14,6 +15,15 @@ let app = express();
  */
 module.exports.Route = new Route(app);
 module.exports.Database = Database;
+
+
+/**
+ * Setup the env() helper method
+ */
+let envHelper = new EnviromentHelper(process.cwd() + "/.env.json");
+global.env = function(name) {
+    return envHelper.getValue(name);
+}
 
 
 /**

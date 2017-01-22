@@ -16,7 +16,7 @@ class hotdog {
     wutang(req, res) {
         Database.table("test").query("SELECT * FROM test");
 
-        res.send('wutang son!');
+        res.send('wutang son! Also, ' + env("database.mysql.host"));
     }
 
     dogs(req, res) {

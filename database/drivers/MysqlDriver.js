@@ -11,12 +11,7 @@ class MysqlDriver extends Driver {
 
         this.settings = configHelper.getSettingsFiles("database");
 
-        this.connection = mysql.createConnection({
-            host: this.settings.host,
-            user: this.settings.user,
-            password: this.settings.password,
-            database: this.settings.database
-        });
+        this.connection = mysql.createConnection(env("database.mysql"));
         this.connection.connect();
     }
 
