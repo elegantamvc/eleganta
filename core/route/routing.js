@@ -15,6 +15,73 @@ class Routing {
         this.express = express;
         this.controllers = [];
         this.controllerMapping = {};
+        this.router = this.express;
+    }
+
+    /**
+     * Our HTTP GET method for setting up a new routes linked to a controller
+     * 
+     * @param {String} path - Url path of the webapp to point to
+     * 
+     * @param {String} controllerAction - String containing controller and
+     * action seperated by an @
+     */
+    get(path, controllerAction) {
+        this.router.get(path, this.getControllerMethod(controllerAction));
+    }
+
+    /**
+     * Our HTTP PUT method for setting up a new routes
+     * 
+     * @param {String} path - url path of the webapp to point to
+     * 
+     * @param {String} controllerAction
+     */
+    put(path, controllerAction) {
+        this.router.put(path, this.getControllerMethod(controllerAction));
+    }
+
+    /**
+     * Our HTTP POST method for setting up a new routes
+     * 
+     * @param {String} path - url path of the webapp to point to
+     * 
+     * @param {String} controllerAction
+     */
+    post(path, controllerAction) {
+        this.router.post(path, this.getControllerMethod(controllerAction));
+    }
+
+    /**
+     * Our HTTP DELETE method for setting up a new routes
+     * 
+     * @param {String} path - url path of the webapp to point to
+     * 
+     * @param {String} controllerAction
+     */
+    delete(path, controllerAction) {
+        this.router.delete(path, this.getControllerMethod(controllerAction));
+    }
+
+    /**
+     * All method that will create an HTTP endpoint for all four types.
+     * @param{String} path - url path of the webapp to point to
+     * 
+     * @param{String} controllerAction
+     */
+    all(path, controllerAction) {
+        this.router.all(path, this.getControllerMethod(controllerAction));
+    }
+
+    /**
+     * Method used to import routes and creating middleware for the appliation
+     */
+    use(path, routerObject) {
+        if(typeof path == 'string') {
+            this.router.use(path, routerObject.router);
+        }else {
+            this.router.use(path);
+        }
     }
 
     /**

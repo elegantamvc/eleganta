@@ -1,7 +1,7 @@
 const Route = require(process.cwd()+'/../core.js').Route;
 
 Route.use(function(req, res, next) {
-    console.log(req);
+    console.log(req.url +": "+req.method);
     next();
 });
 Route.get('/', 'hotdog@index');
