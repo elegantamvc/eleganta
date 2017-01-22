@@ -64,6 +64,16 @@ class Route {
         this.express.delete(path, this.getControllerMethod(controllerAction));
     }
 
+    /**
+     * All method that will create an HTTP endpoint for all four types.
+     * @param{String} path - url path of the webapp to point to
+     * 
+     * @param{String} controllerAction
+     */
+    all(path, controllerAction) {
+        this.express.all(path, this.getControllerMethod(controllerAction));
+    }
+
 
     /**
      * Method for grabbing the method mentioned in the controller string and
