@@ -1,7 +1,7 @@
 const Route = require(process.cwd()+'/../core.js').Route;
 
 Route.use(function(req, res, next) {
-    console.log(req.url +": "+req.method);
+    console.log(req.url + ': ' +req.method);
     next();
 });
 Route.get('/', 'hotdog@index');
@@ -16,3 +16,4 @@ require('./hotdog/dog');
 // to the /harambe path of the app
 let harambe = require('./harambe');
 Route.use('/harambe', harambe);
+

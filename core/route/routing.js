@@ -75,11 +75,13 @@ class Routing {
 
     /**
      * Method used to import routes and creating middleware for the appliation
+     * @param {path} path - path for middleware or function
+     * @param {Object} routerObject - Router object or function for middleware
      */
     use(path, routerObject) {
         if(typeof path == 'string') {
             this.router.use(path, routerObject.router);
-        }else {
+        } else {
             this.router.use(path);
         }
     }
