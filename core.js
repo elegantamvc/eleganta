@@ -28,9 +28,7 @@ module.exports.startServer = function() {
 
     // Register all our routes with express
     let Routes = [];
-    filesystem.walkSync(currentPath + '/' + Config.routesFolder).forEach((path) => {
-        Routes.push(require(path));
-    });
+    Routes.push(require(currentPath + "/" + Config.routesFolder + "/routes.js"));
 
     // Register our path to our public files resources files
     app.use(express.static(Config.staticFolder));

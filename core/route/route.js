@@ -93,8 +93,9 @@ class Route {
     /**
      * Method to parse out the controller string in to an object with path and
      * method string property
+     * 
      * @param {String} controllerString - The string passed in to the route
-     * class containing the controller and method.
+     * class containing the controller and method
      * 
      * @return {Object} - Object with path and method string properties
      */
