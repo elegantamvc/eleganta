@@ -72,6 +72,17 @@ class Route extends Routing {
         this.express.all(path, this.getControllerMethod(controllerAction));
     }
 
+    /**
+     * Method used to import routes and creating middleware for the appliation
+     */
+    use(path, routerObject) {
+        if(typeof path == 'string') {
+            this.express.use(path, routerObject.router);
+        }else {
+            this.express.use(path);
+        }
+    }
+
 }
 
 module.exports = Route;
