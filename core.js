@@ -37,7 +37,7 @@ module.exports.startServer = function() {
         );
 
     // Setup error handling to happen after all middlware is registered
-    ErrorHandling.setErrors(app);
+    ErrorHandling.setErrors(app, Config);
 
     // Register our path to our public files resources files
     app.use(express.static(Config.staticFolder));

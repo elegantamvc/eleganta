@@ -2,5 +2,7 @@
     "port": 4000,
     "routesFolder": "app/routes",
     "staticFolder": "resources",
-    "viewsFolder": "resources/views"
+    "viewsFolder": "resources/views",
+    "Error404": "shared/404",
+    "Error500": "shared/error"
 }
