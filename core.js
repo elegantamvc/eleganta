@@ -5,6 +5,7 @@ const exphbs = require('express-handlebars');
 const Route = require('./core/route/route');
 const Router = require('./core/route/router');
 const ConfigHelper = require('./helpers/config/config');
+const ErrorHandling = require('./core/route/errorHandling');
 const args = process.argv;
 let app = express();
 
@@ -31,7 +32,12 @@ module.exports.startServer = function() {
 
     // Register all our routes with express
     let Routes = [];
-    Routes.push(require(currentPath + "/" + Config.routesFolder + "/routes.js"));
+    Routes.push(
+        require(currentPath + '/' + Config.routesFolder + '/routes.js')
+        );
+
+    // Setup error handling to happen after all middlware is registered
+    ErrorHandling.setErrors(app);
 
     // Register our path to our public files resources files
     app.use(express.static(Config.staticFolder));
