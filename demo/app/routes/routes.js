@@ -9,6 +9,9 @@ Route.get('/', 'hotdog@index');
 Route.get('/hotdog', 'hotdog@wow');
 
 Route.get('/dog', 'hotdog@dog');
+Route.match(['get', 'post'], '/llama', (req, res) => {
+    res.send('Llama page for your info');
+});
 
 require('./hotdog/dog');
 

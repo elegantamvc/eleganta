@@ -87,6 +87,18 @@ class Routing {
     }
 
     /**
+     * Match Method
+     * @param {String[]} methods - Array of methods to use for a route
+     * @param {String} path - Path for routing
+     * @param {String|Function} controllerAction
+     */
+    match(methods, path, controllerAction) {
+        methods.forEach((method) => {
+            this[method.toLowerCase()](path, controllerAction);
+        });
+    }
+
+    /**
      * Method for grabbing the method mentioned in the controller string and
      * caching existing controllers
      *
