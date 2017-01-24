@@ -4,6 +4,14 @@ module.exports.setErrors = (app, config) => {
     });
 
     app.use((err, req, res, next) => {
-        res.status(500).render(config.Error500, {error: err.stack});
+        let errorArray = err.stack.split('at');
+        let regExp = /\(([^)]+)\)/;
+        let errorBreakDown = regExp.exec(errorArray[1])[1].split(':');
+        let filePath = errorBreakDown[0];
+        let fileLine = errorBreakDown[1];
+        let fileColumn = errorBreakDown[2];
+        
+        console.log(filePath);
+        res.status(500).render(config.Error500, {errors: errorArray});
     });
 };
