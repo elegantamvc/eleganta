@@ -1,8 +1,26 @@
-<form method="post" action="/db">
+<form method="get" action="/db">
     ID: <input type="text" name="id" value="" />
     <button type="submit">Find</button>
 </form>
 
 {{#if result }}
-    Something
+    <h3>Results</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Data</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ result.id }}</td>
+                <td>{{ result.data }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="./db">
+        Clear Results
+    </a>
 {{/if }}
