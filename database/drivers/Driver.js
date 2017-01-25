@@ -22,6 +22,10 @@ class Driver {
         throw new NotImplementedError("query() method not implemented.");
     }
 
+    find(id, collectionName) {
+        throw new NotImplementedError("find() method not implemented.");
+    }
+
 }
 
 module.exports = Driver;

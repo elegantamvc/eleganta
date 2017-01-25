@@ -11,6 +11,10 @@ class Table {
         return this.driver.query(queryString);
     }
 
+    find(id) {
+        return this.driver.find(id, this.tableName);
+    }
+
 }
 
 module.exports = Table;
