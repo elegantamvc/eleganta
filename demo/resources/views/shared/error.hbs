@@ -1,9 +1,30 @@
 <h1>An error has occured</h1>
 <br/>
 <br/>
-<div>
+<div id="editor">
 {{code}}
 </div>
 {{#each errors}}
 <div class="error">{{this}}</div>
 {{/each}}
+<style>
+    #editor {
+        position: relative;
+        height:400px;
+        width: 800px
+    }
+    .myMarker {
+        position:absolute;
+        background:rgba(100,200,100,0.5);
+        z-index:20
+    }
+</style>
+<script src="//ajaxorg.github.io/ace-builds/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    let editor = ace.edit("editor");
+    editor.getSession().setUseWorker(false);
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/javascript");
+    editor.setOption("firstLineNumber", {{firstLine}});
+    editor.session.addMarker(new Range(from, {{lineError}}, to, {{lineError}}), "myMarker", "fullLine");
+</script>

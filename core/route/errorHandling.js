@@ -30,7 +30,12 @@ module.exports.setErrors = (app, config) => {
         console.log(filePath);
         res.status(500).render(
             config.Error500,
-            {errors: errorArray, code: displayCode}
+            {
+                errors: errorArray,
+                code: displayCode,
+                firstLine: topBuffer,
+                lineError: fileLine,
+            }
             );
     });
 };
