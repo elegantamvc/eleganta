@@ -12,6 +12,18 @@ class DatabaseController {
             res.render('db/index');
         }
     }
+
+    add(req, res) {
+        if(req.query.data) {
+            Database.table("test").insert({
+                data: req.query.data
+            }).then(function(data) {
+                res.send("Added! <a href='/db'>Back to search</a>.");
+            });
+        } else {
+            res.render('db/add');
+        }
+    }
 }
 
 module.exports = DatabaseController;

@@ -12,6 +12,7 @@ Route.get('/dog', 'hotdog@dog');
 
 // Database
 Route.get('/db', 'DatabaseController@index');
+Route.get('/db/add', 'DatabaseController@add');
 
 require('./hotdog/dog');
 

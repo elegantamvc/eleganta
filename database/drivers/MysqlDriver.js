@@ -42,6 +42,34 @@ class MysqlDriver extends Driver {
         });
     }
 
+    add(data, collectionName) {
+        let queryString = "INSERT INTO `" + collectionName + "` ";
+        let columnString = "(";
+        let valuesString = "(";
+
+        for (var key in data) {
+            if(data.hasOwnProperty(key) && typeof data[key] !== 'function') {
+                columnString += key + ",";
+                valuesString += "'" + data[key] + "',";
+            }
+        }
+
+        // remove trailing commas
+        columnString = columnString.substring(0, columnString.length - 1);
+        valuesString = valuesString.substring(0, valuesString.length - 1);
+
+        columnString += ")";
+        valuesString += ")";
+
+        queryString = queryString + columnString + " VALUES " + valuesString + ";";
+
+        console.log(queryString);
+
+        return this.query(queryString, (results) => {
+            console.log(results);
+        });
+    }
+
 }
 
 module.exports = MysqlDriver;

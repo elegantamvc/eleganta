@@ -15,6 +15,10 @@ class Table {
         return this.driver.find(id, this.tableName);
     }
 
+    insert(data) {
+        return this.driver.add(data, this.tableName);
+    }
+
 }
 
 module.exports = Table;
