@@ -11,7 +11,6 @@ module.exports.setErrors = (app, config) => {
         let errorBreakDown = regExp.exec(errorArray[1])[1].split(':');
         let filePath = errorBreakDown[0];
         let fileLine = errorBreakDown[1];
-        let fileColumn = errorBreakDown[2];
 
         let fileByLine= fs.readFileSync(filePath, 'utf8').split('\n');
 
@@ -19,14 +18,19 @@ module.exports.setErrors = (app, config) => {
 
         let topBuffer = fileLine > 10 ? fileLine -10 : 0;
 
-        let bottomBuffer = fileByLine.length > fileLine+10? fileLine+10 : fileByLine.length;
+        let maxBuffer = fileLine+10;
+        let fileLineNo = fileByLine.length;
+        let bottomBuffer = fileLineNo > maxBuffer ? maxBuffer : fileLineNo;
 
-        for(let i = topBuffer; i <= bottomBuffer; i++) {
+        for(let i = topBuffer; i < bottomBuffer; i++) {
             displayCode += fileByLine[i]+'\n';
         }
 
         console.log(fileByLine);
         console.log(filePath);
-        res.status(500).render(config.Error500, {errors: errorArray, code: displayCode});
+        res.status(500).render(
+            config.Error500,
+            {errors: errorArray, code: displayCode}
+            );
     });
 };
