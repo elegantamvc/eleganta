@@ -3,6 +3,7 @@ const Cli = require('./cli/cli');
 const express = require('express');
 const exphbs = require('express-handlebars');
 const Route = require('./core/route/route');
+const Router = require('./core/route/router');
 const ConfigHelper = require('./helpers/config/config');
 const args = process.argv;
 const Database = require("./database/Database.js");
@@ -24,6 +25,8 @@ let envHelper = new EnviromentHelper(process.cwd() + "/.env.json");
 global.env = function(name) {
     return envHelper.getValue(name);
 }
+
+module.exports.Router = Router;
 
 
 /**
