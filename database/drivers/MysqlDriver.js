@@ -66,7 +66,7 @@ class MysqlDriver extends Driver {
         console.log(queryString);
 
         return this.query(queryString, (results) => {
-            console.log(results);
+            return results.affectedRows == 1 ? true : false;
         });
     }
 
