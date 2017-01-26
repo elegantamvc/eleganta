@@ -24,7 +24,13 @@ class MysqlQueryBuilder {
      * "QUERY", "INSERT", "SELECT", or "DELETE"
      */
     setType(typeName) {
-        this.type = MysqlQueryBuilderTypes[typeName.toUpperCase()];
+        const transformedType = typeName.toUpperCase();
+
+        if(!MysqlQueryBuilderTypes[transformedType]) {
+            throw new Error("Invalid type name '" + typeName + "'!");
+        }
+
+        this.type = MysqlQueryBuilderTypes[transformedType];
     }
 
     /**
@@ -57,6 +63,10 @@ class MysqlQueryBuilder {
         return this;
     }
 
+    setInsertData(data) {
+        this.data.insert = data;
+    }
+
     /**
      * Builds the final query, executes it, and returns the results.
      * 
@@ -66,6 +76,8 @@ class MysqlQueryBuilder {
         switch(this.type) {
             case MysqlQueryBuilderTypes.SELECT:
                 return this.buildSelectQuery(callback);
+            case MysqlQueryBuilderTypes.INSERT:
+                return this.buildInsertQuery(callback);
             default:
                 throw new Error("Unimplemented query builder action!");
         }
@@ -107,6 +119,65 @@ class MysqlQueryBuilder {
         console.log(queryString);
 
         return this.driver.query(queryString, callback);
+    }
+
+    buildInsertQuery(callback) {
+        let queryString = "INSERT INTO `" + this.tableName + "` ";
+        let columnString = "(";
+        let valuesString = "(";
+
+        for (var key in this.data.insert) {
+            if(this.data.insert.hasOwnProperty(key) && typeof this.data.insert[key] !== 'function') {
+                let escapedData = this.escapeStringForSQL(this.data.insert[key]);
+
+                columnString += key + ",";
+                valuesString += "'" + escapedData + "',";
+            }
+        }
+
+        // remove trailing commas
+        columnString = columnString.substring(0, columnString.length - 1);
+        valuesString = valuesString.substring(0, valuesString.length - 1);
+
+        columnString += ")";
+        valuesString += ")";
+
+        queryString = queryString + columnString + " VALUES " + valuesString + ";";
+
+        return this.driver.query(queryString, (results) => {
+            return results.affectedRows == 1 ? true : false;
+        });
+    }
+
+    /**
+     * Makes a string OWASP safe for entering into an SQL database.
+     * 
+     * @param {string} str the string to make safe for entry
+     * 
+     * @returns {string} the escaped string version of the input string
+     */
+    escapeStringForSQL(str) {
+        return str.replace(/[\0\x08\x09\x1a\n\r"'\\\%]/g, function (char) {
+            switch (char) {
+                case "\0":
+                    return "\\0";
+                case "\x08":
+                    return "\\b";
+                case "\x09":
+                    return "\\t";
+                case "\x1a":
+                    return "\\z";
+                case "\n":
+                    return "\\n";
+                case "\r":
+                    return "\\r";
+                case "\"":
+                case "'":
+                case "\\":
+                case "%":
+                    return "\\" + char;
+            }
+        });
     }
 
 }

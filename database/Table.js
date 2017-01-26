@@ -47,7 +47,12 @@ class Table {
      * successful or false if otherwise
      */
     insert(data) {
-        return this.driver.add(data, this.tableName);
+        let builder = new MysqlQueryBuilder(this.tableName);
+        builder.setType("INSERT");
+
+        builder.setInsertData(data);
+
+        return builder.get();
     }
 
     /**
