@@ -108,6 +108,26 @@ class MysqlDriver extends Driver {
     }
 
     /**
+     * Removes a record by its ID specified from the specified table.
+     * 
+     * @param {uint} id the unique ID of the record to delete
+     * 
+     * @param {string} collectionName the name of the table to remove the record 
+     * from
+     * 
+     * @returns {Promise} resolves to true if the removal was a success, or
+     * false otherwise
+     */
+    remove(id, collectionName) {
+        let safeID = this.escapeStringForSQL(id);
+        const queryString = "DELETE FROM `" + collectionName + "` WHERE id='" + safeID + "';";
+
+        return this.query(queryString, (results) => {
+            return results.affectedRows == 1 ? true : false;
+        });
+    }
+
+    /**
      * Makes a string OWASP safe for entering into an SQL database.
      * 
      * @param {string} str the string to make safe for entry

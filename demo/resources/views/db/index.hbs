@@ -26,4 +26,21 @@
     <a href="./db">
         Clear Results
     </a>
+{{else }}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Data</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each list as |item key|}}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.data }}</td>
+            </tr>
+            {{/each }}
+        </tbody>
+    </table>
 {{/if }}
