@@ -1,8 +1,6 @@
-const Driver = require("./drivers/MysqlDriver.js");
-
 class Table {
 
-    constructor(name) {
+    constructor(name, Driver) {
         this.tableName = name;
         this.driver = new Driver();
     }
