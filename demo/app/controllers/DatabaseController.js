@@ -9,7 +9,7 @@ class DatabaseController {
                 });
             });
         } else {
-            Database.table("test").query("SELECT * FROM `test`;").then(function(data) {
+            Database.table("test").all().then(function(data) {
                 res.render('db/index', {
                     list: data
                 });

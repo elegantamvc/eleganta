@@ -53,6 +53,16 @@ class Table {
         return this.driver.remove(id, this.tableName);
     }
 
+    /**
+     * Retrieves all records for this table.
+     * 
+     * @returns {Promise} resolves to an array of all of the records for this 
+     * table.
+     */
+    all() {
+        return this.query("SELECT * FROM `" + this.tableName + "`;");
+    }
+
 }
 
 module.exports = Table;
