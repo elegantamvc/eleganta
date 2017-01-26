@@ -32,6 +32,7 @@
             <tr>
                 <th>ID</th>
                 <th>Data</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -39,6 +40,11 @@
             <tr>
                 <td>{{ item.id }}</td>
                 <td>{{ item.data }}</td>
+                <td>
+                    <a href="/db/delete?id={{ item.id }}">
+                        Delete
+                    </a>
+                </td>
             </tr>
             {{/each }}
         </tbody>

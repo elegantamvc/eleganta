@@ -19,6 +19,10 @@ class Table {
         return this.driver.add(data, this.tableName);
     }
 
+    remove(id) {
+        return this.driver.remove(id, this.tableName);
+    }
+
 }
 
 module.exports = Table;

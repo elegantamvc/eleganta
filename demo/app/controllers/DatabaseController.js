@@ -28,6 +28,16 @@ class DatabaseController {
             res.render('db/add');
         }
     }
+
+    delete(req, res) {
+        if(req.query.id) {
+            Database.table("test").remove(req.query.id).then((result) => {
+                res.redirect("/db");
+            });
+        } else {
+            res.redirect("/db");
+        }
+    }
 }
 
 module.exports = DatabaseController;
