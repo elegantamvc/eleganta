@@ -59,7 +59,8 @@ class MysqlDriver extends Driver {
      * with the record or null if no record was found
      */
     find(id, collectionName) {
-        const queryString = "SELECT * FROM `" + collectionName + "` WHERE id='" + id + "';";
+        let safeID = this.escapeStringForSQL(id);
+        const queryString = "SELECT * FROM `" + collectionName + "` WHERE id='" + safeID + "';";
 
         return this.query(queryString, (results) => {
             return results ? results[0] : null;
