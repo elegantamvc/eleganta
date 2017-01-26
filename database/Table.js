@@ -1,3 +1,5 @@
+const MysqlQueryBuilder = require("./drivers/builders/MysqlQueryBuilder.js");
+
 class Table {
 
     constructor(name, Driver) {
@@ -26,7 +28,14 @@ class Table {
      * if it is not
      */
     find(id) {
-        return this.driver.find(id, this.tableName);
+        let builder = new MysqlQueryBuilder(this.tableName);
+        builder.setType("SELECT");
+
+        builder.where([{columnName: "id", value: id}]);
+
+        return builder.get((rawResults) => {
+            return rawResults ? rawResults[0] : null;
+        });
     }
 
     /**
@@ -60,7 +69,10 @@ class Table {
      * table.
      */
     all() {
-        return this.query("SELECT * FROM `" + this.tableName + "`;");
+        let builder = new MysqlQueryBuilder(this.tableName);
+        builder.setType("SELECT");
+
+        return builder.get();
     }
 
 }
