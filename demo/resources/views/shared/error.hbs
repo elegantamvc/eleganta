@@ -1,6 +1,21 @@
-<h1>An error has occured</h1>
-<br/>
-<br/>
+<!doctype html>
+<html lang="en">
+<style>
+    body {
+        background: #eee;
+        font-family: Arial, Helvetica, sans-serif
+    }
+    #mainError {
+        width: 100%;
+        text-align: center;
+        padding: 30px;
+        font-size: 25px;
+    }
+</style>
+<body>
+<div id="mainError">
+    {{errorType}}
+</div>
 <div id="editor">
 {{code}}
 </div>
@@ -28,3 +43,5 @@
     editor.setOption("firstLineNumber", {{firstLine}});
     editor.session.addMarker(new Range(from, {{lineError}}, to, {{lineError}}), "myMarker", "fullLine");
 </script>
+</body>
+</html>
