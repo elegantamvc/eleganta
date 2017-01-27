@@ -73,12 +73,19 @@
 </style>
 <script src="//ajaxorg.github.io/ace-builds/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 <script>
+
     let editor = ace.edit("editor");
     editor.getSession().setUseWorker(false);
     editor.setTheme("ace/theme/monokai");
     editor.getSession().setMode("ace/mode/javascript");
     editor.setOption("firstLineNumber", {{firstLine}});
-    editor.session.addMarker(new Range(from, {{lineError}}, to, {{lineError}}), "myMarker", "fullLine");
+
+    editor.renderer.on('afterRender', function() {
+        var lines = document.querySelectorAll('.ace_text-layer .ace_line');
+        lines[{{lineError}}-{{firstLine}}].style.background = 'rgba(244,67,54, 0.5)';
+    });
+    
+    
 </script>
 </body>
 </html>
