@@ -7,7 +7,7 @@
         margin: 0px;
         padding: 0px;
         width: 100%;
-        overflow: hidden;
+        overflow-x: hidden;
     }
     #mainError {
         width: 100%;
@@ -28,6 +28,18 @@
         overflow:hidden;
         box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     }
+    #stackTrace {
+        background: #ccc;
+        padding: 10px;
+        margin-top: 30px;
+    }
+    #wrapper {
+        display: table;
+        margin: 0px auto;
+    }
+    .error {
+        padding: 5px;
+    }
 </style>
 <body>
 <div id="mainError">
@@ -40,9 +52,13 @@
 <div id="editor">
 {{code}}
 </div>
-{{#each errors}}
-<div class="error">{{this}}</div>
-{{/each}}
+<div id="stackTrace">
+    <div id="wrapper">
+        {{#each errors}}
+        <div class="error">{{this}}</div>
+        {{/each}}
+    </div>
+</div>
 <style>
     #editor {
         position: relative;

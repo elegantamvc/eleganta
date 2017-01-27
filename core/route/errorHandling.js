@@ -6,7 +6,7 @@ module.exports.setErrors = (app, config) => {
     });
 
     app.use((err, req, res, next) => {
-        let errorArray = err.stack.split('at');
+        let errorArray = err.stack.split(' at ');
         let regExp = /\(([^)]+)\)/;
         let errorBreakDown = regExp.exec(errorArray[1])[1].split(':');
         let filePath = errorBreakDown[0];
