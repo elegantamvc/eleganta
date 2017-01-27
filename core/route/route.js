@@ -1,4 +1,4 @@
-const Routing = require('./routing');
+const Routing = require('./allrouting');
 
 /**
  * Static class that will be imported by users to register routes to for their
