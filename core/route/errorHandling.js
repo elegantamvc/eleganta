@@ -36,6 +36,7 @@ module.exports.setErrors = (app, config) => {
                 firstLine: topBuffer,
                 lineError: fileLine,
                 errorType: errorArray[0],
+                fileName: filePath,
             }
             );
     });
