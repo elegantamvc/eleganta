@@ -5,6 +5,7 @@ const exphbs = require('express-handlebars');
 const Route = require('./core/route/route');
 const Router = require('./core/route/router');
 const ConfigHelper = require('./helpers/config/config');
+const ErrorHandling = require('./core/route/errorHandling');
 const args = process.argv;
 const Database = require("./database/Database.js");
 const EnviromentHelper = require("./helpers/config/EnviromentHelper.js");
@@ -39,24 +40,29 @@ module.exports.startServer = function() {
 
     // Initilize config helper
     let configHelper = new ConfigHelper(currentPath);
-    let Config = configHelper.config();
+    let config = configHelper.config();
 
     // Register all our routes with express
     let Routes = [];
-    Routes.push(require(currentPath + "/" + Config.routesFolder + "/routes.js"));
+    Routes.push(
+        require(currentPath + '/' + config.routesFolder + '/routes.js')
+        );
+
+    // Setup error handling to happen after all middlware is registered
+    ErrorHandling.setErrors(app, config);
 
     // Register our path to our public files resources files
-    app.use(express.static(Config.staticFolder));
+    app.use(express.static(config.staticFolder));
 
     // Register our template engine and our views location
-    app.set('views', Config.viewsFolder);
+    app.set('views', config.viewsFolder);
     app.engine('.hbs', exphbs({extname: '.hbs'}));
     app.set('view engine', '.hbs');
 
     // Run the express server on port 3000
     // Port number will be moved to the config later.
-    app.listen(Config.port, () => {
-        console.log('Eleganta is running at localhost:'+Config.port+'!');
+    app.listen(config.port, () => {
+        console.log('Eleganta is running at localhost:'+config.port+'!');
     });
 };
 
