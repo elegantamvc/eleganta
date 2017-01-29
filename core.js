@@ -4,6 +4,7 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const Route = require('./core/route/route');
 const Router = require('./core/route/router');
+const Controller = require('./core/controller/controller');
 const ConfigHelper = require('./helpers/config/config');
 const ErrorHandling = require('./core/route/errorHandling');
 const bodyParser = require('body-parser');
@@ -17,6 +18,8 @@ let app = express();
 module.exports.Route = new Route(app);
 
 module.exports.Router = Router;
+
+module.exports.Controller = Controller;
 
 
 /**

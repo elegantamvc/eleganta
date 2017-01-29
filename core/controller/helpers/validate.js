@@ -1,3 +1,5 @@
-module.exports.validate = (request, rules) => {
-
+module.exports = (request, rules) => {
+    for(let property in rules) {
+        console.log(property);
+    }
 };

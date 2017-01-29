@@ -23,9 +23,7 @@ Route.get('/form', (req, res) => {
     res.render('hotdog/form');
 });
 
-Route.post('/form', (req, res) => {
-    console.log(req.body.firstname);
-});
+Route.post('/form', 'hotdog@form');
 
 require('./hotdog/dog');
 

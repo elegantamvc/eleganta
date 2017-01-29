@@ -120,14 +120,18 @@ class Routing {
             let path = controllerConfig.path;
             let method = controllerConfig.method;
             let arrayIndex = this.controllerMapping[path];
-
+            let self = this;
             if(arrayIndex != undefined) {
-                return this.controllers[arrayIndex][method];
+                return function(args) {
+                    self.controllers[arrayIndex][method].apply(self.controllers[arrayIndex], arguments);
+                };
             }else {
                 this.controllerMapping[path] = this.controllers.length;
                 let Controller = require(path);
                 this.controllers.push(new Controller);
-                return this.controllers[this.controllers.length-1][method];
+                return function(args) {
+                    self.controllers[self.controllers.length-1][method].apply(self.controllers[self.controllers.length-1], arguments);
+                };
             }
         }else if(typeof controllerAction == 'function') {
             return controllerAction;

@@ -1,4 +1,6 @@
-class hotdog {
+const Controller = require(process.cwd()+'/../core.js').Controller;
+
+class hotdog extends Controller {
     index(req, res) {
         res.render('index');
     }
@@ -8,7 +10,9 @@ class hotdog {
     }
 
     dog(req, res) {
+        this.test();
         res.send('le dog');
+        
     }
 
     wutang(req, res) {
@@ -17,6 +21,16 @@ class hotdog {
 
     dogs(req, res) {
         res.render('hotdog/dog', {hotdogs: req.params.number});
+    }
+
+    form(req, res) {
+        this.validate(req, {
+            'firstname': 'required',
+        });
+    }
+
+    test() {
+        console.log('BOOOIII');
     }
 }
 
