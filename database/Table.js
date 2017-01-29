@@ -29,7 +29,7 @@ class Table {
      */
     find(id) {
         let builder = new MysqlQueryBuilder(this.tableName, "SELECT");
-        builder.where([{columnName: "id", value: id}]);
+        builder.where("id", id);
 
         return builder.get((rawResults) => {
             return rawResults ? rawResults[0] : null;
@@ -61,12 +61,7 @@ class Table {
      */
     remove(id) {
         let builder = new MysqlQueryBuilder(this.tableName, "DELETE");
-        builder.where([
-            {
-                columnName: "id",
-                value: id
-            }
-        ]);
+        builder.where("id", id);
 
         return builder.get();
     }

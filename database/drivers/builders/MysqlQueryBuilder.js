@@ -69,8 +69,36 @@ class MysqlQueryBuilder {
      * 
      * @returns {MysqlQueryBuilder} instance of this object, to chain off of
      */
-    where(whereArray) {
-        this.data.where = whereArray;
+    where(arrayOrName, operatorOrValue = null, value = null) {
+        if(!this.data.where) {
+            this.data.where = [];
+        }
+
+        if(arguments.length == 3) {
+            this.data.where.push([
+                arrayOrName, operatorOrValue, value
+            ]);
+        } else if(arguments.length == 2) {
+            this.data.where.push([
+                arrayOrName, "=", operatorOrValue
+            ]);
+        } else if(arguments.length == 1) {
+            for(let x = 0; x < arrayOrName.length; x++) {
+                let whereEntry = arrayOrName[x];
+
+                if(whereEntry.length == 3) {
+                    this.data.where.push(whereEntry);
+                } else if(whereEntry.length == 2) {
+                    this.data.where.push([
+                        whereEntry[0], "=", whereEntry[1]
+                    ]);
+                } else {
+                    throw new Error("Bad length for where entry.");
+                }
+            }
+        } else {
+            throw new Error("Bad number of arguments for where call.");
+        }
 
         return this;
     }
@@ -115,18 +143,7 @@ class MysqlQueryBuilder {
         queryString += " FROM `" + this.tableName + "`";
 
         if(this.data.where) {
-            queryString += " WHERE ";
-
-            for(let x = 0; x < this.data.where.length; x++) {
-                let where = this.data.where[x];
-                let safeString = this.escapeStringForSQL(where.value);
-
-                queryString += where.columnName + "='" + safeString + "'";
-
-                if(x != this.data.where.length - 1) {
-                    queryString += " AND ";
-                }
-            }
+            queryString += this.buildWhereString();
         }
 
         queryString += ";";
@@ -172,23 +189,31 @@ class MysqlQueryBuilder {
         let queryString = "DELETE FROM `" + this.tableName + "`";
 
         if(this.data.where) {
-            queryString += " WHERE ";
-
-            for(let x = 0; x < this.data.where.length; x++) {
-                let where = this.data.where[x];
-                let safeString = this.escapeStringForSQL(where.value);
-
-                queryString += where.columnName + "='" + safeString + "'";
-
-                if(x != this.data.where.length - 1) {
-                    queryString += " AND ";
-                }
-            }
+            queryString += this.buildWhereString();
         }
 
         queryString += ";";
 
         return this.driver.query(queryString, callback);
+    }
+
+    buildWhereString() {
+        let x, queryPartial = " WHERE ";
+
+        for(x = 0; x < this.data.where.length; x++) {
+            let where = this.data.where[x];
+            let columnName = where[0];
+            let operator = where[1];
+            let safeValue = this.escapeStringForSQL(where[2]);
+
+            queryPartial += columnName + operator + "'" + safeValue + "'";
+
+            if(x != this.data.where.length - 1) {
+                queryPartial += " AND ";
+            }
+        }
+
+        return queryPartial;
     }
 
     /**
