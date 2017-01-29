@@ -19,6 +19,14 @@ Route.get('/broken', (req, res) => {
     res.send(number);
 });
 
+Route.get('/form', (req, res) => {
+    res.render('hotdog/form');
+});
+
+Route.post('/form', (req, res) => {
+    console.log(req.body.firstname);
+});
+
 require('./hotdog/dog');
 
 // We grab our harambe router and register it

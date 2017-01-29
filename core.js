@@ -6,6 +6,7 @@ const Route = require('./core/route/route');
 const Router = require('./core/route/router');
 const ConfigHelper = require('./helpers/config/config');
 const ErrorHandling = require('./core/route/errorHandling');
+const bodyParser = require('body-parser');
 const args = process.argv;
 let app = express();
 
@@ -29,6 +30,10 @@ module.exports.startServer = function() {
     // Initilize config helper
     let configHelper = new ConfigHelper(currentPath);
     let config = configHelper.config();
+
+    // Register Body parser
+    app.use(bodyParser.urlencoded({extended: false}));
+    app.use(bodyParser.json());
 
     // Register all our routes with express
     let Routes = [];
