@@ -94,16 +94,16 @@ class Routing {
      */
     match(methods, path, controllerAction) {
         const allowedMethod = ['get', 'post', 'put', 'delete'];
-        if(allowedMethod.indexOf(method.toLowerCase()) > -1) {
-            methods.forEach((method) => {
+        methods.forEach((method) => {
+            if(allowedMethod.indexOf(method.toLowerCase()) > -1) {
                 this[method.toLowerCase()](path, controllerAction);
-            });
-        } else {
-            let errorMessage = 'Eleganta Error: `';
-            errorMessage += method.toLowerCase();
-            errorMessage +='` is not a valid method type';
-            console.log(errorMessage);
-        }
+            }else {
+                let errorMessage = 'Eleganta Error: `';
+                errorMessage += method.toLowerCase();
+                errorMessage +='` is not a valid method type';
+                console.log(errorMessage);
+            }
+        });
     }
 
     /**
