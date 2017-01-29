@@ -7,6 +7,10 @@ const MysqlQueryBuilderTypes = {
     SELECT: 3
 };
 
+/**
+ * Object that represents a strung together query; can be used to build SQL
+ * queries safely and programmatically.
+ */
 class MysqlQueryBuilder {
 
     /**
@@ -64,8 +68,14 @@ class MysqlQueryBuilder {
     /**
      * Sets the WHERE limitation for a given query.
      * 
-     * @param {Array} whereArray array of WHERE objects for a given where 
-     * statement
+     * @param {Array|string} arrayOrName array of WHERE objects for a given
+     * where statement, or the column name for a single where statement
+     * 
+     * @param {string} operatorOrValue the operator if you intend to specify 
+     * one for the where statement, or the value for the statement otherwise
+     * 
+     * @param {string} value if you specified a value for the previous
+     * parameter, this is the value to specify
      * 
      * @returns {MysqlQueryBuilder} instance of this object, to chain off of
      */
@@ -103,6 +113,12 @@ class MysqlQueryBuilder {
         return this;
     }
 
+    /**
+     * Sets the insert data for a INSERT type query.
+     * 
+     * @param {Array} data map of "column": "value" data points to build the 
+     * new entry
+     */
     setInsertData(data) {
         this.data.insert = data;
     }
@@ -125,6 +141,18 @@ class MysqlQueryBuilder {
         }
     }
 
+    /**
+     * Builds a SELECT query string and executes it, returning a Promise for 
+     * when it is complete.
+     * 
+     * @param {function} callback callback function to be called after the 
+     * query comes back from the server (successfully), but before the data 
+     * is passed off to the Promise for resolution. Will pass the raw data from 
+     * the SQL server to be parsed or transformed in any way.
+     * 
+     * @return {Promise} Promise that is resolved when the SELECT query
+     * completes with the data of the SELECT
+     */
     buildSelectQuery(callback) {
         let queryString = "SELECT ";
 
@@ -153,6 +181,18 @@ class MysqlQueryBuilder {
         return this.driver.query(queryString, callback);
     }
 
+    /**
+     * Builds an INSERT query string and executes it, returning a Promise for 
+     * when it is complete.
+     * 
+     * @param {function} callback callback function to be called after the 
+     * query comes back from the server (successfully), but before the data 
+     * is passed off to the Promise for resolution. Will pass the raw data from 
+     * the SQL server to be parsed or transformed in any way.
+     * 
+     * @return {Promise} Promise that is resolved when the INSERT query
+     * completes with the data of the INSERT
+     */
     buildInsertQuery(callback) {
         let queryString = "INSERT INTO `" + this.tableName + "` ";
         let columnString = "(";
@@ -185,6 +225,18 @@ class MysqlQueryBuilder {
         });
     }
 
+    /**
+     * Builds a DELETE query string and executes it, returning a Promise for 
+     * when it is complete.
+     * 
+     * @param {function} callback callback function to be called after the 
+     * query comes back from the server (successfully), but before the data 
+     * is passed off to the Promise for resolution. Will pass the raw data from 
+     * the SQL server to be parsed or transformed in any way.
+     * 
+     * @return {Promise} Promise that is resolved when the DELETE query
+     * completes with the data of the DELETE
+     */
     buildDeleteQuery(callback) {
         let queryString = "DELETE FROM `" + this.tableName + "`";
 
@@ -197,6 +249,12 @@ class MysqlQueryBuilder {
         return this.driver.query(queryString, callback);
     }
 
+    /**
+     * Builds an SQL partial for a WHERE clause given the current set where
+     * data.
+     * 
+     * @returns {string} the complete WHERE partial string
+     */
     buildWhereString() {
         let x, queryPartial = " WHERE ";
 
