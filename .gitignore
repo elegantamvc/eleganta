@@ -38,3 +38,6 @@ jspm_packages
 
 .eslintrc.json
 .vscode
+
+# Testing App Ignore
+demo/.env.json

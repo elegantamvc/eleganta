@@ -19,10 +19,14 @@ Route.get('/broken', (req, res) => {
     res.send(number);
 });
 
+// Database
+Route.get('/db', 'DatabaseController@index');
+Route.get('/db/add', 'DatabaseController@add');
+Route.get('/db/delete', 'DatabaseController@delete');
+
 require('./hotdog/dog');
 
 // We grab our harambe router and register it
 // to the /harambe path of the app
 let harambe = require('./harambe');
 Route.use('/harambe', harambe);
-
