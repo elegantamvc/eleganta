@@ -78,6 +78,10 @@ class Table {
         return builder.get();
     }
 
+    where() {
+        
+    }
+
 }
 
 module.exports = Table;
