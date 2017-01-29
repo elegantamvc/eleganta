@@ -11,8 +11,7 @@ class hotdog extends Controller {
 
     dog(req, res) {
         this.test();
-        res.send('le dog');
-        
+        res.send('le dog');      
     }
 
     wutang(req, res) {
@@ -27,6 +26,8 @@ class hotdog extends Controller {
         this.validate(req, {
             'firstname': 'required',
         });
+        console.log(req.body);
+        res.render('hotdog/form', {form: req.body});
     }
 
     test() {
