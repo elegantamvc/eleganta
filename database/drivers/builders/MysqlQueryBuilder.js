@@ -90,6 +90,8 @@ class MysqlQueryBuilder {
                 return this.buildSelectQuery(callback);
             case MysqlQueryBuilderTypes.INSERT:
                 return this.buildInsertQuery(callback);
+            case MysqlQueryBuilderTypes.DELETE:
+                return this.buildDeleteQuery(callback);
             default:
                 throw new Error("Unimplemented query builder action!");
         }
@@ -158,8 +160,35 @@ class MysqlQueryBuilder {
         queryString = queryString + columnString + " VALUES " + valuesString + ";";
 
         return this.driver.query(queryString, (results) => {
-            return results.affectedRows == 1 ? true : false;
+            if(callback) {
+                return callback(results);
+            } else {
+                return results.affectedRows == 1 ? true : false;
+            }
         });
+    }
+
+    buildDeleteQuery(callback) {
+        let queryString = "DELETE FROM `" + this.tableName + "`";
+
+        if(this.data.where) {
+            queryString += " WHERE ";
+
+            for(let x = 0; x < this.data.where.length; x++) {
+                let where = this.data.where[x];
+                let safeString = this.escapeStringForSQL(where.value);
+
+                queryString += where.columnName + "='" + safeString + "'";
+
+                if(x != this.data.where.length - 1) {
+                    queryString += " AND ";
+                }
+            }
+        }
+
+        queryString += ";";
+
+        return this.driver.query(queryString, callback);
     }
 
     /**

@@ -60,7 +60,15 @@ class Table {
      * successful or false if otherwise
      */
     remove(id) {
-        return this.driver.remove(id, this.tableName);
+        let builder = new MysqlQueryBuilder(this.tableName, "DELETE");
+        builder.where([
+            {
+                columnName: "id",
+                value: id
+            }
+        ]);
+
+        return builder.get();
     }
 
     /**
