@@ -23,7 +23,7 @@ function analyze(name, value, rule) {
             case 'alpha':
                 error = alpha(name, value);
                 break;
-        }      
+        }
         if(error != '') {
             errors.push(error);
         }
@@ -52,6 +52,20 @@ function alpha(name, value) {
         return '';
     }else {
         return name + ' must contain only alpha characters';
+    }
+}
+
+/**
+ * Checks to see if the value passes the alpha check.
+ * @param  {string} name
+ * @param  {Any} value
+ * @return {String} - Error message or lack of one.
+ */
+function numeric(name, value) {
+    if(/^\d+$/.test(value)) {
+        return '';
+    }else {
+        return name + ' must contain only number characters';
     }
 }
 
