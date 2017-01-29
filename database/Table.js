@@ -44,7 +44,7 @@ class Table {
      * @returns {Promise} resolves to a boolean: true if the insert was
      * successful or false if otherwise
      */
-    insert(data) {
+    add(data) {
         let builder = new MysqlQueryBuilder(this.tableName, "INSERT");
         builder.setInsertData(data);
 

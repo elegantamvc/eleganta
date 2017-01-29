@@ -19,7 +19,7 @@ class DatabaseController {
 
     add(req, res) {
         if(req.query.data) {
-            Database.table("test").insert({
+            Database.table("test").add({
                 data: req.query.data
             }).then(function(data) {
                 res.send("Added! <a href='/db'>Back to search</a>.");
