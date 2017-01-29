@@ -87,6 +87,26 @@ class Routing {
     }
 
     /**
+     * Match Method
+     * @param {String[]} methods - Array of methods to use for a route
+     * @param {String} path - Path for routing
+     * @param {String|Function} controllerAction
+     */
+    match(methods, path, controllerAction) {
+        const allowedMethod = ['get', 'post', 'put', 'delete'];
+        if(allowedMethod.indexOf(method.toLowerCase()) > -1) {
+            methods.forEach((method) => {
+                this[method.toLowerCase()](path, controllerAction);
+            });
+        } else {
+            let errorMessage = 'Eleganta Error: `';
+            errorMessage += method.toLowerCase();
+            errorMessage +='` is not a valid method type';
+            console.log(errorMessage);
+        }
+    }
+
+    /**
      * Method for grabbing the method mentioned in the controller string and
      * caching existing controllers
      *

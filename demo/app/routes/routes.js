@@ -9,6 +9,15 @@ Route.get('/', 'hotdog@index');
 Route.get('/hotdog', 'hotdog@wow');
 
 Route.get('/dog', 'hotdog@dog');
+Route.match(['get', 'post'], '/llama', (req, res) => {
+    res.send('Llama page for your info');
+});
+
+Route.get('/broken', (req, res) => {
+    let number = 10.5;
+    number.split('@');
+    res.send(number);
+});
 
 require('./hotdog/dog');
 
