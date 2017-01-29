@@ -28,9 +28,7 @@ class Table {
      * if it is not
      */
     find(id) {
-        let builder = new MysqlQueryBuilder(this.tableName);
-        builder.setType("SELECT");
-
+        let builder = new MysqlQueryBuilder(this.tableName, "SELECT");
         builder.where([{columnName: "id", value: id}]);
 
         return builder.get((rawResults) => {
@@ -47,9 +45,7 @@ class Table {
      * successful or false if otherwise
      */
     insert(data) {
-        let builder = new MysqlQueryBuilder(this.tableName);
-        builder.setType("INSERT");
-
+        let builder = new MysqlQueryBuilder(this.tableName, "INSERT");
         builder.setInsertData(data);
 
         return builder.get();
@@ -74,8 +70,7 @@ class Table {
      * table.
      */
     all() {
-        let builder = new MysqlQueryBuilder(this.tableName);
-        builder.setType("SELECT");
+        let builder = new MysqlQueryBuilder(this.tableName, "SELECT");
 
         return builder.get();
     }

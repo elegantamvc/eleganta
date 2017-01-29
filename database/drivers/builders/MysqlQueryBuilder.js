@@ -9,12 +9,24 @@ const MysqlQueryBuilderTypes = {
 
 class MysqlQueryBuilder {
 
-    constructor(tableName) {
+    /**
+     * Makes a new instance of a MysqlQueryBuilder for a specified table.
+     * 
+     * @param {string} tableName the name of the table to bind to
+     * 
+     * @param {string=} typeName the type of the query to build; options are 
+     * the same as the setType method
+     */
+    constructor(tableName, typeName = null) {
         this.driver = new MySqlDriver();
         this.type = MysqlQueryBuilderTypes.NONE;
         this.suffixes = {};
         this.data = {};
         this.tableName = tableName;
+
+        if(typeName) {
+            this.setType(typeName);
+        }
     }
 
     /**
@@ -105,8 +117,9 @@ class MysqlQueryBuilder {
 
             for(let x = 0; x < this.data.where.length; x++) {
                 let where = this.data.where[x];
+                let safeString = this.escapeStringForSQL(where.value);
 
-                queryString += where.columnName + "='" + where.value + "'";
+                queryString += where.columnName + "='" + safeString + "'";
 
                 if(x != this.data.where.length - 1) {
                     queryString += " AND ";
