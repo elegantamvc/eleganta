@@ -18,8 +18,11 @@ function analyze(name, value, rule) {
         let error = '';
         switch(condition) {
             case 'required':
-            error = required(name, value);
-
+                error = required(name, value);
+                break;
+            case 'alpha':
+                error = alpha(name, value);
+                break;
         }      
         if(error != '') {
             errors.push(error);
@@ -27,7 +30,30 @@ function analyze(name, value, rule) {
     });
 }
 
+
+/**
+ * Checks to see if the value passes the required check.
+ * @param  {string} name
+ * @param  {Any} value
+ * @return {String} - Error message or lack of one.
+ */
 function required(name, value) {
     return value != null && value != '' ? '' : name+' cannot be null or empty.';
 }
+
+/**
+ * Checks to see if the value passes the alpha check.
+ * @param  {string} name
+ * @param  {Any} value
+ * @return {String} - Error message or lack of one.
+ */
+function alpha(name, value) {
+    if(/^[a-zA-Z]+$/.test(value)) {
+        return '';
+    }else {
+        return name + ' must contain only alpha characters';
+    }
+}
+
+
 
