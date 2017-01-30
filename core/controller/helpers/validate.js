@@ -23,6 +23,9 @@ function analyze(name, value, rule) {
             case 'alpha':
                 error = alpha(name, value);
                 break;
+            case 'numeric':
+                error = numeric(name, value);
+                break;
         }
         if(error != '') {
             errors.push(error);
@@ -56,7 +59,7 @@ function alpha(name, value) {
 }
 
 /**
- * Checks to see if the value passes the alpha check.
+ * Checks to see if the value passes the numeric check.
  * @param  {string} name
  * @param  {Any} value
  * @return {String} - Error message or lack of one.
