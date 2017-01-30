@@ -3,6 +3,8 @@ module.exports = (request, rules) => {
         analyze(property, request.body[property], rules[property]);
     }
 };
+
+
 /**
  * Method for analzing a rule
  * @param {String} name - name of value

@@ -1,4 +1,4 @@
-const filesystem = require('./helpers/filesystem/filesystem');
+//  const filesystem = require('./helpers/filesystem/filesystem');
 const Cli = require('./cli/cli');
 const express = require('express');
 const exphbs = require('express-handlebars');
@@ -9,8 +9,8 @@ const ConfigHelper = require('./helpers/config/config');
 const ErrorHandling = require('./core/route/errorHandling');
 const bodyParser = require('body-parser');
 const args = process.argv;
-const Database = require("./database/Database.js");
-const EnviromentHelper = require("./helpers/config/EnviromentHelper.js");
+const Database = require('./database/Database.js');
+const EnviromentHelper = require('./helpers/config/EnviromentHelper.js');
 let app = express();
 
 
@@ -24,10 +24,10 @@ module.exports.Database = Database;
 /**
  * Setup the env() helper method
  */
-let envHelper = new EnviromentHelper(process.cwd() + "/.env.json");
+let envHelper = new EnviromentHelper(process.cwd() + '/.env.json');
 global.env = function(name) {
     return envHelper.getValue(name);
-}
+};
 
 module.exports.Router = Router;
 
