@@ -1,6 +1,8 @@
+const Database = require(process.cwd() + '/../core.js').Database;
 const Controller = require(process.cwd()+'/../core.js').Controller;
 
 class hotdog extends Controller {
+
     index(req, res) {
         res.render('index');
     }
@@ -15,7 +17,9 @@ class hotdog extends Controller {
     }
 
     wutang(req, res) {
-        res.send('wutang son!');
+        Database.table("test").find(1).then(function(data) {
+            res.send('wutang son! Also,<br />' + JSON.stringify(data));
+        });
     }
 
     dogs(req, res) {

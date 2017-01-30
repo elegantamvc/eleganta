@@ -24,6 +24,10 @@ Route.get('/form', (req, res) => {
 });
 
 Route.post('/form', 'hotdog@form');
+// Database
+Route.get('/db', 'DatabaseController@index');
+Route.get('/db/add', 'DatabaseController@add');
+Route.get('/db/delete', 'DatabaseController@delete');
 
 require('./hotdog/dog');
 
@@ -31,4 +35,3 @@ require('./hotdog/dog');
 // to the /harambe path of the app
 let harambe = require('./harambe');
 Route.use('/harambe', harambe);
-
