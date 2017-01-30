@@ -73,4 +73,18 @@ function numeric(name, value) {
 }
 
 
-
+/**
+ * Method to check if the provided string is less than a
+ * max value specified by the user
+ * @param {String} name - name of the property
+ * @param {String} value - value to check against
+ * @param {Number} max - user specified max length
+ * @return  {String} - Error message
+ */
+function max(name, value, max) {
+    if(value.length <= max) {
+        return '';
+    }else {
+        return name + ' must be less than ' + max + 'characters long.';
+    }
+}
