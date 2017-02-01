@@ -8,11 +8,12 @@ class Controller {
     /**
      * Method for validating requests
      * @param {Object} req - Request from express
+     * @param {Object} res - Response from express
      * @param {Object} rules - Set of rules to validate against
      * @return {String[]} - Array of strings
      */
-    validate(req, rules) {
-        return validate(req, rules);
+    validate(req, res, rules) {
+        return validate(req, res, rules);
     }
 }
 

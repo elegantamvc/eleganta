@@ -1,7 +1,16 @@
-module.exports = (request, rules) => {
+module.exports = (request, res, rules) => {
+    let totalErrors = [];
     for(let property in rules) {
-        if(rules[property] != '' || rules[property] != undefined)
-            analyze(property, request.body[property], rules[property]);
+        if(rules[property] != '' || rules[property] != undefined) {
+            let value = request.body[property];
+            let errors = analyze(property, value, rules[property]);
+            totalErrors = totalErrors.concat(errors);
+        }
+    }
+    
+    if(totalErrors.length > 0) {
+        res.redirect('back');
+        console.log(totalErrors);
     }
 };
 
@@ -60,7 +69,7 @@ function analyze(name, value, rule) {
         }
     });
 
-    console.log(errors);
+    return errors;
 }
 
 
