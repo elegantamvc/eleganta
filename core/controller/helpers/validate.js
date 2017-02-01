@@ -19,6 +19,14 @@ function analyze(name, value, rule) {
 
     conditions.forEach( (condition) => {
         let error = '';
+        let argument = '';
+        let conditionArray = condition.split(':');
+
+        if(conditionArray.length > 1) {
+            condition = conditionArray[0];
+            argument = conditionArray[1];
+        }
+
         switch(condition) {
             case 'required':
                 error = required(name, value);
@@ -28,6 +36,9 @@ function analyze(name, value, rule) {
                 break;
             case 'numeric':
                 error = numeric(name, value);
+                break;
+            case 'max':
+                error = max(name, value, argument);
                 break;
         }
         if(error != '') {
@@ -92,6 +103,6 @@ function max(name, value, max) {
     if(value.length <= max) {
         return '';
     }else {
-        return name + ' must be less than ' + max + 'characters long.';
+        return name + ' must be less than ' + max + ' characters long.';
     }
 }

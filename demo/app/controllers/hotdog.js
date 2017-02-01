@@ -28,10 +28,7 @@ class hotdog extends Controller {
 
     form(req, res) {
         this.validate(req, {
-            'firstname': 'required',
-        });
-        this.validate(req, {
-            firstname: 'required:alpha',
+            firstname: 'required|alpha|max:3',
         });
         res.render('hotdog/form', {form: req.body});
     }
