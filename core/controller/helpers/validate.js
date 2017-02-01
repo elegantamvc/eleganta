@@ -43,6 +43,12 @@ function analyze(name, value, rule) {
             case 'string':
                 error = string(name, value);
                 break;
+            case 'boolean' || 'bool':
+                error = bool(name, value);
+                break;
+            case 'number':
+                error = number(name, value);
+                break;
         }
         if(error != '') {
             errors.push(error);
@@ -121,5 +127,33 @@ function string(name, value) {
         return '';
     }else {
         return name + ' must be a of type string.';
+    }
+}
+
+/**
+ * Method to check if type is boolean
+ * @param {String} name
+ * @param {Any} value
+ * @return {String}
+ */
+function bool(name, value) {
+    if(typeof value == 'boolean') {
+        return '';
+    }else {
+        return name + ' must be a of type boolean.';
+    }
+}
+
+/**
+ * Method to check if type is number
+ * @param {String} name
+ * @param {Any} value
+ * @return {String}
+ */
+function number(name, value) {
+    if(typeof value == 'number') {
+        return '';
+    }else {
+        return name + ' must be a of type number.';
     }
 }
