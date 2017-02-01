@@ -40,6 +40,9 @@ function analyze(name, value, rule) {
             case 'max':
                 error = max(name, value, argument);
                 break;
+            case 'string':
+                error = string(name, value);
+                break;
         }
         if(error != '') {
             errors.push(error);
@@ -95,7 +98,7 @@ function numeric(name, value) {
  * Method to check if the provided string is less than a
  * max value specified by the user
  * @param {String} name - name of the property
- * @param {String} value - value to check against
+ * @param {Any} value - value to check against
  * @param {Number} max - user specified max length
  * @return  {String} - Error message
  */
@@ -104,5 +107,19 @@ function max(name, value, max) {
         return '';
     }else {
         return name + ' must be less than ' + max + ' characters long.';
+    }
+}
+
+/**
+ * Method to check if type is string
+ * @param {String} name
+ * @param {Any} value
+ * @return {String}
+ */
+function string(name, value) {
+    if(typeof value == 'string') {
+        return '';
+    }else {
+        return name + ' must be a of type string.';
     }
 }
