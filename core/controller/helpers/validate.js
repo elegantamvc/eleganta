@@ -37,6 +37,9 @@ function analyze(name, value, rule) {
             case 'numeric':
                 error = numeric(name, value);
                 break;
+            case 'alphanumeric' || 'alpha_numeric' || 'alpha_num':
+                error = alphaNumeric(name, value);
+                break;
             case 'max':
                 error = max(name, value, argument);
                 break;
@@ -96,6 +99,20 @@ function numeric(name, value) {
         return '';
     }else {
         return name + ' must contain only number characters';
+    }
+}
+
+/**
+ * Checks to see if the value passes the alpha numeric check.
+ * @param  {string} name
+ * @param  {Any} value
+ * @return {String} - Error message or lack of one.
+ */
+function alphaNumeric(name, value) {
+    if(/^[a-z0-9]+$/.test(value)) {
+        return '';
+    }else {
+        return name + ' must contain only alpha characters';
     }
 }
 
