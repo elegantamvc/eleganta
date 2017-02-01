@@ -1,6 +1,7 @@
 module.exports = (request, rules) => {
     for(let property in rules) {
-        analyze(property, request.body[property], rules[property]);
+        if(rules[property] != '' || rules[property] != undefined)
+            analyze(property, request.body[property], rules[property]);
     }
 };
 
@@ -31,8 +32,12 @@ function analyze(name, value, rule) {
         }
         if(error != '') {
             errors.push(error);
+        }else {
+            console.log('succes: '+condition);
         }
     });
+
+    console.log(errors);
 }
 
 

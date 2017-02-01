@@ -24,11 +24,12 @@ Route.get('/form', (req, res) => {
 });
 
 Route.post('/form', 'hotdog@form');
+/*
 // Database
 Route.get('/db', 'DatabaseController@index');
 Route.get('/db/add', 'DatabaseController@add');
 Route.get('/db/delete', 'DatabaseController@delete');
-
+*/
 require('./hotdog/dog');
 
 // We grab our harambe router and register it

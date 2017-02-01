@@ -30,7 +30,9 @@ class hotdog extends Controller {
         this.validate(req, {
             'firstname': 'required',
         });
-        console.log(req.body);
+        this.validate(req, {
+            firstname: 'required:alpha',
+        });
         res.render('hotdog/form', {form: req.body});
     }
 
